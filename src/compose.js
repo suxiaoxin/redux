@@ -18,5 +18,7 @@ export default function compose(...funcs) {
     return funcs[0]
   }
 
+  
+
   return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
