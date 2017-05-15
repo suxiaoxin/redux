@@ -5,27 +5,17 @@ function bindActionCreator(actionCreator, dispatch) {
 }
 
 /**
- * Turns an object whose values are action creators, into an object with the
- * same keys, but with every function wrapped into a `dispatch` call so they
- * may be invoked directly. This is just a convenience method, as you can call
- * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+ * 这个函数生成dispath触发action的函数，接受两个参数
+ * 
  *
- * For convenience, you can also pass a single function as the first argument,
- * and get a function in return.
+ * @param {Function|Object} actionCreators actionCreator组成的Object,也可以是单一的actionCreate.
  *
- * @param {Function|Object} actionCreators An object whose values are action
- * creator functions. One handy way to obtain it is to use ES6 `import * as`
- * syntax. You may also pass a single function.
+ * @param {Function} dispatch
  *
- * @param {Function} dispatch The `dispatch` function available on your Redux
- * store.
- *
- * @returns {Function|Object} The object mimicking the original object, but with
- * every action creator wrapped into the `dispatch` call. If you passed a
- * function as `actionCreators`, the return value will also be a single
- * function.
+ * @returns {Function|Object} 返回dispath函数
  */
 export default function bindActionCreators(actionCreators, dispatch) {
+  // 是一个函数，直接返回一个 bindActionCreator 函数，这个函数调用 dispatch 触发 action
   if (typeof actionCreators === 'function') {
     return bindActionCreator(actionCreators, dispatch)
   }
@@ -39,6 +29,7 @@ export default function bindActionCreators(actionCreators, dispatch) {
 
   const keys = Object.keys(actionCreators)
   const boundActionCreators = {}
+  // 遍历对象，然后对每个遍历项的 actionCreator 生成函数，将函数按照原来的 key 值放到一个对象中，最后返回这个对象
   for (let i = 0; i < keys.length; i++) {
     const key = keys[i]
     const actionCreator = actionCreators[key]

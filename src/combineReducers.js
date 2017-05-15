@@ -137,7 +137,7 @@ export default function combineReducers(reducers) {
 
     let hasChanged = false
     const nextState = {}
-    //用for循环遍历
+    //用for循环遍历,根据key取出相应的reducer和state,然后执行reduder函数，如果state有变化，返回新的state
     for (let i = 0; i < finalReducerKeys.length; i++) {
       const key = finalReducerKeys[i]
       const reducer = finalReducers[key]
